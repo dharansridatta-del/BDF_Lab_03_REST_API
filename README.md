@@ -7,6 +7,27 @@ A complete Books REST API built with Node.js, Express.js and SQLite.
 - **Registration Number:** 252U1R7096
 - **Faculty Name:** Joel Prasanth
 
+## 🚀 Live Deployment
+
+**Base URL:** `https://bdf-lab-03-rest-api.onrender.com`
+
+| Task | Description | Live API Link |
+|---|---|---|
+| Task 1 | RESTful Endpoints – List all books (GET) | [GET /books](https://bdf-lab-03-rest-api.onrender.com/books) |
+| Task 1 | RESTful Endpoints – Get single book (GET by ID) | [GET /books/1](https://bdf-lab-03-rest-api.onrender.com/books/1) |
+| Task 2 | Query Parameters – Search by title | [search_q=fire](https://bdf-lab-03-rest-api.onrender.com/books?search_q=fire) |
+| Task 2 | Query Parameters – Sort by price DESC | [order_by=price&order=DESC](https://bdf-lab-03-rest-api.onrender.com/books?order_by=price&order=DESC) |
+| Task 2 | Query Parameters – Pagination | [limit=2&offset=0](https://bdf-lab-03-rest-api.onrender.com/books?limit=2&offset=0) |
+| Task 3 | Price Range Filter – BETWEEN | [min_price=200&max_price=400](https://bdf-lab-03-rest-api.onrender.com/books?min_price=200&max_price=400) |
+| Task 3 | Price Range Filter – min only | [min_price=300](https://bdf-lab-03-rest-api.onrender.com/books?min_price=300) |
+| Task 4 | POST Validation – Missing title (400) | POST https://bdf-lab-03-rest-api.onrender.com/books |
+| Task 4 | POST Validation – Non-numeric price (400) | POST https://bdf-lab-03-rest-api.onrender.com/books |
+| Task 5 | Status Codes – Create book (201) | POST https://bdf-lab-03-rest-api.onrender.com/books |
+| Task 5 | Status Codes – Update book (200) | PUT https://bdf-lab-03-rest-api.onrender.com/books/1 |
+| Task 5 | Status Codes – Missing ID (404) | [GET /books/999999](https://bdf-lab-03-rest-api.onrender.com/books/999999) |
+| Task 6 | Consistent Error Format – Invalid sort | [order=SIDEWAYS](https://bdf-lab-03-rest-api.onrender.com/books?order=SIDEWAYS) |
+| Task 7 | Debugging – Server root check | [GET /](https://bdf-lab-03-rest-api.onrender.com/) |
+
 
 ## 1. Requirements
 
@@ -120,46 +141,72 @@ The API rejects missing/blank title, missing/blank author, missing price, non-nu
 4. **Missing await:** Await asynchronous database operations before using their results or sending the response. This project uses `await` for database calls and awaits initialization before listening.
 
 ## Screenshots
-1.	Name the endpoints as nouns (/books) and use the HTTP method to show the action.
+
+### Task 1 — RESTful Endpoint Naming
+Use nouns in URLs and HTTP methods to perform actions.
+
+🔗 Live: [GET /books](https://bdf-lab-03-rest-api.onrender.com/books) | [GET /books/1](https://bdf-lab-03-rest-api.onrender.com/books/1)
+
 ![alt text](image.png)
 ![alt text](image-1.png)
 ![alt text](image-2.png)
 
 
-2.	Add query parameters to GET /books/: search_q (partial title match with LIKE), order_by, order (ASC/DESC), limit and offset, each with a default value.
+### Task 2 — Query Parameters
+`search_q`, `order_by`, `order`, `limit`, `offset` with default values.
+
+🔗 Live: [search_q=fire](https://bdf-lab-03-rest-api.onrender.com/books?search_q=fire) | [order_by=price&order=DESC](https://bdf-lab-03-rest-api.onrender.com/books?order_by=price&order=DESC) | [limit=2&offset=0](https://bdf-lab-03-rest-api.onrender.com/books?limit=2&offset=0)
 
 ![alt text](image-3.png)
 ![alt text](image-4.png)
 ![alt text](image-5.png)
 
-3.	Add a price-range filter, for example min_price and max_price using BETWEEN or two conditions.
+### Task 3 — Price Range Filtering
+`min_price` and `max_price` using `BETWEEN` or two conditions.
+
+🔗 Live: [min_price=200&max_price=400](https://bdf-lab-03-rest-api.onrender.com/books?min_price=200&max_price=400) | [min_price=300](https://bdf-lab-03-rest-api.onrender.com/books?min_price=300)
 
 ![alt text](image-6.png)
 ![alt text](image-7.png)
 
 
-4.	Validate the POST body: reject missing title, author or a non-numeric price with 400 and a clear JSON message.
+### Task 4 — POST Body Validation
+Reject missing title, author or non-numeric price with HTTP 400 and a clear JSON message.
+
+🔗 Live (use Postman): `POST https://bdf-lab-03-rest-api.onrender.com/books`
+
 ![alt text](image-8.png)
 ![alt text](image-9.png)
 ![alt text](image-10.png)
 
 
-5.	Return 201 after create, 200 after update and delete, and 404 when the id does not exist.
+### Task 5 — HTTP Status Codes
+Return 201 after create, 200 after update/delete, 404 when ID does not exist.
 
-To create:
+🔗 Live: [404 – missing ID](https://bdf-lab-03-rest-api.onrender.com/books/999999) | POST/PUT via Postman
+
+To create (201):
 ![alt text](image-11.png)
 
-To update and delete:
+To update and delete (200):
 ![alt text](image-12.png)
 
-To update missing id and delete missing id:
+To update/delete missing id (404):
 ![alt text](image-13.png)
 
 
-6.	Make the response format consistent, for example { "message": "..." } for errors.
+### Task 6 — Consistent Response Format
+All errors return `{ "message": "..." }`.
+
+🔗 Live: [Invalid order direction](https://bdf-lab-03-rest-api.onrender.com/books?order=SIDEWAYS) | [Invalid order_by column](https://bdf-lab-03-rest-api.onrender.com/books?order_by=password) | [Unknown endpoint](https://bdf-lab-03-rest-api.onrender.com/unknown)
+
 ![alt text](image-14.png)
 
-7.	Debugging exercise: the faculty hands out a broken version of the project. Students fix a port conflict (EADDRINUSE), a wrong import path, a table-name typo (no such table) and a missing await.
+### Task 7 — Debugging Exercise
+Fixed: port conflict (EADDRINUSE), wrong import path, table-name typo, and missing await.
+
+🔗 Live: [Server root check](https://bdf-lab-03-rest-api.onrender.com/)
+
 ![alt text](image-15.png)
 
 
